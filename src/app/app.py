@@ -23,6 +23,7 @@ class App():
         self.page.window.height = 1080
         self.page.window.maximized = True
         self.page.views.append(LoginPage().get_view())
+        self.page.on_resized = lambda _: self.page.update()
         self.page.update()
         
         # Atualização da página
