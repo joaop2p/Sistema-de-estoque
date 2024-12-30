@@ -18,6 +18,3 @@ class Auth(Conect):
             return self._checkPassword(user, password)
         return False
         
-
-# a = Auth()
-# print(a.Login("jpxns2", "10200383"))
