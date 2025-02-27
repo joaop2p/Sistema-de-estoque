@@ -1,30 +1,40 @@
 
-from ..widgets.switch import Switch
-
-from ..widgets.text_link import text_link
-from ...utils.layout import Layout
-from .model.model import ViewModel
-from ..services.auth import Auth
-from ...utils.page import Page
-from ..widgets.warning_bar import error_warning
-from ..widgets.TextField import textFeild
+from ..home.home import Home
+from ...widgets.switch import Switch
+from ....utils.layout import Layout
+from ..interface.model import ViewModel
+from ...services.auth import Auth
+from ....utils.page import Page
+from ...widgets.TextField import textFeild
+from ...router.router import Router
 import flet as ft
 
 class LoginPage(ViewModel, Auth):
-    def __init__(self):
+    def __init__(self, debug: bool = False, **kwargs):
         super().__init__()
         self.page = Page().get_page()
-        self.route = "/home"
+        self.router = Router()
+        self.debug = debug
+        self.route = "/login"
         self.login = ft.Ref[ft.TextField]()
         self.password = ft.Ref[ft.TextField]()
         self.main_content: ft.Container = None
         self.switch = Switch(option_1_value="Sign In",option_2_value="Sign Up", on_click=self._chengeMode)
 
-    def _inputCheck(self):
+    @property
+    def _inputCheck(self) -> bool:
         self.login.current.error_text = f"Campo {self.login.current.label} é obrigatório." if self.login.current.value.strip() == "" else None
         self.password.current.error_text = f"Campo {self.password.current.label} é obrigatório." if self.password.current.value.strip() == "" else None
         self.page.update()
         return self.password.current.value.strip() != "" and self.login.current.value.strip() != ""
+
+    @property
+    def _authCheck(self) -> bool:
+        result = self.sign_in(self.login.current.value, self.password.current.value)
+        self.login.current.error_text = "O usuário pode está errado." if not result else None
+        self.password.current.error_text = "A senha pode está errada." if not result else None
+        self.page.update()
+        return result
 
     def _signInView(self) -> ft.Container:
         return ft.Container(
@@ -76,7 +86,7 @@ class LoginPage(ViewModel, Auth):
                                         padding=20,
                                         color=ft.Colors.WHITE
                                         ),
-                                    on_click=lambda _: (print("aproved") if self._inputCheck() else print("denied")),
+                                    on_click=lambda _: self.router.setView(Home()) if self.debug or self._inputCheck and self._authCheck else None,
                                     width=Layout.getWidth(0.05)
                                     ),
                                 ),
@@ -87,9 +97,13 @@ class LoginPage(ViewModel, Auth):
                             height=Layout.getHeight(0.01)
                             ),
                         ft.Container(
-                            content= text_link(
-                                value_text="Esqueci a senha",
-                                action= lambda _: print("Senha")
+                            content = ft.Text(
+                                spans=[
+                                    ft.TextSpan(
+                                            text="Esqueci a senha",
+                                            on_click=lambda _: (print("Em construção"), print(self.page.width))
+                                        )
+                                    ],
                                 ),
                             alignment= ft.alignment.center,
                             )
@@ -199,14 +213,15 @@ class LoginPage(ViewModel, Auth):
 
     def _chengeMode(self):
         if self.switch.getCurrentOption == "Sign In":
+            print(self._signInView())
             self.main_content.content = self._signInView()
         else:
+            print(self._signUpView())
             self.main_content.content = self._signUpView()
         self.main_content.update()
         
 
     def get_view(self) -> ft:
-        # self.main_content = ft.Container(content=self._signInView(), animate_opacity=ft.AnimatedSwitcher(, ft.AnimationCurve.EASE))
         self.main_content = ft.AnimatedSwitcher(
             content=self._signInView(), duration= 1000, 
             transition=ft.AnimatedSwitcherTransition.FADE

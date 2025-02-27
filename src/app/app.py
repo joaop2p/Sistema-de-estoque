@@ -1,5 +1,5 @@
-
-from .pages.login import LoginPage
+from .services.database import Conect
+from .pages.auth.login import LoginPage
 from .router.router import Router
 from ..config.config import APP_NAME, VERSION
 from ..utils.page import Page
@@ -9,6 +9,7 @@ class App():
     def __init__(self) -> None:
         self.page = None
         self.router = Router()
+        self.conect = Conect()
 
     def __str__(self) -> str:
         return f"App(title: {APP_NAME}, version: {VERSION})"
@@ -17,23 +18,27 @@ class App():
         self.page = Page().get_page()
         # Configuração de estilos
         self.page.title = APP_NAME
+        self.page.debug
         self.page.theme_mode = ThemeMode.DARK
         # Adição de páginas
         self.page.window.width = 1920
         self.page.window.height = 1080
         self.page.window.maximized = True
-        self.page.views.append(LoginPage().get_view())
-        self.page.on_resized = lambda _: self.page.update()
+        self.page.fonts = {
+            "sansation": "/fonts/sansation/Sansation_Regular.ttf"
+            }
+        self.page.update()
+
+    def start(self) -> None:
+        self.page.views.append(LoginPage(True).get_view())
         self.page.update()
         
-        # Atualização da página
-        
-
     def run_app(self, page: Page) -> None:
         # Iniciando o singleton de page
         Page().set_page(page)
         # Aplicando configurações iniciais
         self.settings()
+        self.start()
 
         
         

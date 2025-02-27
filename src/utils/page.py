@@ -3,13 +3,13 @@ from .singleton import SingletonMeta
 
 class Page(metaclass=SingletonMeta):
     def __init__(self):
-        self.page: pg = None
+        self._page: pg = None
 
     def __str__(self):
-        return self.page.title if self.page is not None else "Unamed"
+        return self._page.title if self._page is not None else "Unamed"
 
     def set_page(self, page: pg):
-        self.page = page
+        self._page = page
         
     def get_page(self):
-        return self.page
+        return self._page

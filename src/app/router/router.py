@@ -1,17 +1,19 @@
-from flet import View
+from ...utils.page import Page
+from ..pages.interface.model import ViewModel
 
-from ...utils.singleton import SingletonMeta
-from ..pages.model.model import ViewModel
-
-class Router(metaclass = SingletonMeta):
+class Router:
     def __init__(self) -> None:
-        self.pages = {}
+        super().__init__()
+        self.page = Page().get_page()
 
-    def setView(self, object: object, route: str) -> None:
-        self.pages[route] = object
-        
-    def _getView(self, route: str) -> ViewModel:
-        return self.pages[route]
+    def setView(self, page: ViewModel) -> None:
+        new_view = page.get_view()
+        self.page.views.append(new_view)
+        self.page.go(new_view.route)
+        self.page.update()
 
-    def getView(self, route: str) -> View:
-        return self._getView(route).get_view()
+    def pop_view(self) -> ViewModel:
+        self.page.views.pop()
+        top_view = self.page.views[-1]
+        self.page.go(top_view.route)
+        self.page.update()

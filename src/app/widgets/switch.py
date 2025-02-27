@@ -1,4 +1,3 @@
-from typing import Literal
 from flet import (
     Row, Text, alignment, Colors, TextStyle, FontWeight,
     border_radius, TextAlign, Container, MainAxisAlignment,
@@ -34,7 +33,7 @@ class Switch():
             alignment=alignment.center,
             bgcolor= self.colors["selected"][0] if selected else self.colors["unselect"],
             height=Layout.getHeight(0.05),
-            width=Layout.getWidth(0.19) / 2,
+            width=Layout.getWidth(0.15) / 2,
             animate=Animation(400, animation.AnimationCurve.BOUNCE_IN),
             border_radius=border_radius.all(10),
             on_click=lambda e: self.on_click(first),
@@ -68,7 +67,7 @@ class Switch():
                 alignment=MainAxisAlignment.CENTER,
                 spacing=0
             ),
-            width=Layout.getWidth(0.19),
+            width=Layout.getWidth(0.15),
             height=Layout.getHeight(0.05),
             bgcolor=Colors.WHITE,
             border_radius=border_radius.all(10)
