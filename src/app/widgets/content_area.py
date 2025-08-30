@@ -1,6 +1,6 @@
 import flet as ft
 
-def Content_area(title: str, content_ref: ft.Ref) -> str:
+def Content_area(title: str, content_ref: ft.Ref) -> ft.Container:
     return ft.Container(
         content=ft.Column(
             controls=[

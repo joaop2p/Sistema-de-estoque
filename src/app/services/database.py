@@ -5,7 +5,8 @@ from sqlmodel import Field, SQLModel, create_engine, Session, select
 from ...utils.singleton import SingletonMeta
 
 class Conect(metaclass=SingletonMeta):
-    def __init__(self) -> None:
+    def __init__(self):
+        super().__init__()
         self.engine = create_engine("mysql+pymysql://root:@127.0.0.1:3306/sistema_storage")
         SQLModel.metadata.create_all(self.engine)
 

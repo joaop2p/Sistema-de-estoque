@@ -12,7 +12,7 @@ class Auth():
 
     def _checkPassword(self, user: Users, password: str) -> bool:
         return password == user.password
-
+    
     def _createUser(self, user: Users) -> Users:
         new_user = User()
         new_user.setLogin(user.login)
@@ -20,9 +20,10 @@ class Auth():
         new_user.setName(user.name)
         new_user.setPassword(user.password)
 
+
     def sign_in(self, login: str, password: str) -> bool:
-        user = self._checkUser(login, password)
+        user = self._checkUser(login)
         if user is not None:
-            self._createUser(user)
-            return True
+            return self._checkPassword(user, password)
         return False
+

@@ -5,6 +5,7 @@ class Main:
     def app(self):
         ft.app(App().run_app, name="Sistema de Estoques")
 
+
 if __name__ == "__main__":
     main = Main()
     main.app()

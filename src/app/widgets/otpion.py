@@ -1,6 +1,6 @@
 from flet import Row, Icon, Text, Colors, Icons, FontWeight
 
-def option(icon: str, title: str, is_list: bool = True) -> str:
+def option(icon: str, title: str, is_list: bool = True) -> Row:
     return Row(
         controls=[
             Icon(
