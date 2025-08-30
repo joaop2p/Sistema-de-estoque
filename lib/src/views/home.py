@@ -5,10 +5,6 @@ class Home(AppPage):
     _page: Page
     _name: str = '/home'
 
-    def __init__(self, ) -> None:
-        # self._page = page
-        pass
-
     def set_page(self, page: Page):
         self._page = page
 
@@ -16,6 +12,7 @@ class Home(AppPage):
         return View(
             self._name,
             controls=[
+                # Apenas para ter conteúdo na página
                 Container(
                     content=Text('Oi')
                 )

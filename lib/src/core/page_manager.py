@@ -1,4 +1,4 @@
-from typing import Self
+from typing import Callable, Self
 from flet import Page, RouteChangeEvent
 
 from lib.src.views.home import Home
@@ -8,8 +8,8 @@ class PageManager:
     _page: Page
     _current_page: AppPage | None 
     _instance = None
-    _routes: dict[str, AppPage] = {
-        '/home': Home()
+    _routes: dict[str, AppPage | Callable[[], AppPage]] = {
+        '/home': Home
     }
 
     def __new__(cls) -> Self:
@@ -26,7 +26,11 @@ class PageManager:
     def change_page(self, event: RouteChangeEvent) -> None:
         if event.data is None or event.data not in self._routes.keys():
             raise Exception
-        new_view = self._routes[event.data]
+        page_entry = self._routes[event.data]
+        if callable(page_entry):
+            new_view = page_entry()
+        else:
+            new_view = page_entry
         new_view.set_page(self._page)
         self._page.views.clear()
         self._page.views.append(new_view.get_page())
