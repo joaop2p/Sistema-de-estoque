@@ -12,7 +12,9 @@ class Labels:
         LabelKey.MAIL_FIELD: 'E-mail',
         LabelKey.COFIRM_PASSWORD: 'Confirmar Senha',
         LabelKey.SIGN_IN: 'Entrar',
-        LabelKey.SIGN_UP: 'Cadastrar'
+        LabelKey.SIGN_UP: 'Cadastrar',
+        LabelKey.ERROR_TEXT: 'O campo {field_name} é obrigatório.',
+        LabelKey.ERROR_TEXT_PASSWORD_NOT_MATCH: 'As senhas fornecidas não coincidem.'
     }
     _LANG_EN = {
         LabelKey.APP_TITLE: "Inventory System",
@@ -23,7 +25,9 @@ class Labels:
         LabelKey.MAIL_FIELD: 'E-mail',
         LabelKey.COFIRM_PASSWORD: 'Confirm password',
         LabelKey.SIGN_IN: 'Sign In',
-        LabelKey.SIGN_UP: 'Sign Up'
+        LabelKey.SIGN_UP: 'Sign Up',
+        LabelKey.ERROR_TEXT: 'The field {field_name} is required.',
+        LabelKey.ERROR_TEXT_PASSWORD_NOT_MATCH: 'The provided passwords do not match.'
     }
     _LANGS: dict[str, dict[LabelKey, str]] = {
         "pt": _LANG_PT,

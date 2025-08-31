@@ -1,24 +1,30 @@
 from flet import (
     Row, Text, alignment, Colors, TextStyle, FontWeight,
     border_radius, TextAlign, Container, MainAxisAlignment,
-    Animation, animation, Page
+    Animation, AnimationCurve, Page, BoxShadow, Offset
 )
-from typing import Callable
+from typing import Callable, Literal
+
+from lib.src.app.styles import theme
 
 
 class Toggle:
-    colors = {
-            "selected": ["#00CCF5", "#A868F7"],
-            "unselect": Colors.GREY_100
-        }
+
     
-    def __init__(self, option_1_value: str, page: Page, option_2_value: str, on_click: Callable | None = None):
+    def __init__(self, option_1_value: str, page: Page, option_2_value: str, on_click: Callable | None = None, theme: Literal['dark'] | Literal['light'] = 'dark'):
         self.option_1_state = True
         self.option_2_state = False
+        self._theme = theme
+        self.colors = {
+            "selected": ["#D1D0D0", "#A8A8A8"] if theme =='dark' else ["#1F63E2", "#1F63E2"],
+            "unselect": "#2B2B2B" if theme == 'dark' else "#FCF7F7"
+        }
         self.option_1_button = self._create_option(option_1_value, self.option_1_state, True)
         self.option_2_button = self._create_option(option_2_value, self.option_2_state)
         self.page = page
+
         self.on_changed = on_click
+
 
     @property
     def current_option(self) -> str:
@@ -31,12 +37,19 @@ class Toggle:
 
     def _create_option(self, value: str, selected: bool, first: bool = False) -> Container:
         """Cria um botão de opção do switch."""
+        match(self._theme):
+            case 'light':
+                color=Colors.WHITE if selected else Colors.BLACK
+            case 'dark':
+                color=Colors.BLACK if selected else Colors.WHITE
+            case _:
+                color=Colors.WHITE
         return Container(
             content=Text(
                 value=value,
                 text_align=TextAlign.CENTER,
                 style=TextStyle(
-                    color=Colors.WHITE if selected else Colors.BLACK,
+                    color=color,
                     weight=FontWeight.BOLD
                 )
             ),
@@ -44,10 +57,10 @@ class Toggle:
             bgcolor=self.colors["selected"][0] if selected else self.colors["unselect"],
             height=100,
             width=250,
-            animate=Animation(400, animation.AnimationCurve.BOUNCE_IN),
+            animate=Animation(1000, AnimationCurve.BOUNCE_OUT),
             border_radius=border_radius.all(10),
-            on_click=lambda e: self.on_click(first),
-            disabled=selected  # agora desativa apenas se estiver selecionado
+            on_click=lambda _: self.on_click(first),
+            disabled=selected 
         )
 
     def on_click(self, first: bool) -> None:
@@ -58,8 +71,15 @@ class Toggle:
 
     def _update_button(self, button: Container, selected: bool, color: str) -> None:
         """Atualiza as propriedades visuais de um botão."""
-        button.bgcolor = color if selected else self.colors["unselect"]
-        button.content.style.color = Colors.WHITE if selected else Colors.BLACK # type: ignore
+        match(self._theme):
+            case 'light':
+                color=Colors.WHITE if selected else Colors.BLACK
+            case 'dark':
+                color=Colors.BLACK if selected else Colors.WHITE
+            case _:
+                color=Colors.WHITE
+        button.bgcolor = self.colors["selected"][0] if selected else self.colors["unselect"]
+        button.content.style.color = color# type: ignore
         button.disabled = selected
         button.update()
 
@@ -81,6 +101,12 @@ class Toggle:
             ),
             width=500,
             height=50,
-            bgcolor=Colors.WHITE,
-            border_radius=border_radius.all(10)
+            bgcolor='#2B2B2B' if self._theme == 'dark' else "#FFFFFF",
+            border_radius=border_radius.all(10),
+            shadow=BoxShadow(
+                spread_radius=5,
+                blur_radius=15,
+                color=Colors.with_opacity(0.1,Colors.BLACK),
+                offset=Offset(0,1)
+            )
         )
