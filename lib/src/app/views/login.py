@@ -21,7 +21,7 @@ class Login(AppPage):
                     'login': ft.Ref[ft.TextField](),
                     'password': ft.Ref[ft.TextField]()
                 },
-                'singUp':{
+                'signUp':{
                     'login': ft.Ref[ft.TextField](),
                     'email': ft.Ref[ft.TextField](),
                     'password': ft.Ref[ft.TextField](),
@@ -95,72 +95,72 @@ class Login(AppPage):
     )
     @property
     def _sing_up(self) -> ft.Container:
-        temp_refs = self._refs['fields']['singUp']
+        temp_refs = self._refs['fields']['signUp']
         return ft.Container(
                 alignment=ft.alignment.center,
                 content=ft.Column(
                     alignment=ft.MainAxisAlignment.CENTER,
                     controls=[
                         ft.Container(
-                                alignment=ft.alignment.center,
-                                content=text_Feild(
-                                    label=self._labels.t(self._keys.LOGIN_FIELD),
-                                    ref=temp_refs['login'],          
-                                    max_length=6,
-                                    icon=ft.Icons.PERSON,
-                                )
-                            ),
+                            alignment=ft.alignment.center,
+                            content=text_Feild(
+                                label=self._labels.t(self._keys.LOGIN_FIELD),
+                                ref=temp_refs['login'],          
+                                max_length=6,
+                                icon=ft.Icons.PERSON,
+                            )
+                        ),
                         ft.Container(
-                                alignment=ft.alignment.center,
-                                content=text_Feild(
-                                    label=self._labels.t(self._keys.MAIL_FIELD),
-                                    ref=temp_refs['email'],          
-                                    icon=ft.Icons.MAIL,
-                                )
-                            ),
-                            ft.Container(
-                                alignment=ft.alignment.center,
-                                content=text_Feild(
-                                    label=self._labels.t(self._keys.PASSWORD_FIELD),
-                                    ref=temp_refs['password'],          
-                                    icon=ft.Icons.LOCK_OUTLINE,
-                                    password=True,
-                                    can_reveal_password = True
-                                )
-                            ),
-                            ft.Container(
-                                alignment=ft.alignment.center,
-                                content=text_Feild(
-                                    label=self._labels.t(self._keys.COFIRM_PASSWORD),
-                                    ref=temp_refs['confirm_password'],          
-                                    icon=ft.Icons.LOCK_OUTLINE,
-                                    password=True,
-                                    can_reveal_password = True
-                                )
-                            ),
-                            ft.Container(
-                                height=10
-                            ),
-                            ft.Container(
-                                content=ft.Container(
-                                    content=ft.ElevatedButton(
-                                        bgcolor="#6CA2F2",
-                                        on_click=lambda _: print(self._inputCheck),
-                                        style=ft.ButtonStyle(
-                                            padding=20,
-                                            color=ft.Colors.WHITE
-                                            ),
-                                        content=ft.Text(
-                                            self._labels.t(self._keys.SIGN_UP)
-                                            ),
+                            alignment=ft.alignment.center,
+                            content=text_Feild(
+                                label=self._labels.t(self._keys.MAIL_FIELD),
+                                ref=temp_refs['email'],          
+                                icon=ft.Icons.MAIL,
+                            )
+                        ),
+                        ft.Container(
+                            alignment=ft.alignment.center,
+                            content=text_Feild(
+                                label=self._labels.t(self._keys.PASSWORD_FIELD),
+                                ref=temp_refs['password'],          
+                                icon=ft.Icons.LOCK_OUTLINE,
+                                password=True,
+                                can_reveal_password = True
+                            )
+                        ),
+                        ft.Container(
+                            alignment=ft.alignment.center,
+                            content=text_Feild(
+                                label=self._labels.t(self._keys.COFIRM_PASSWORD),
+                                ref=temp_refs['confirm_password'],          
+                                icon=ft.Icons.LOCK_OUTLINE,
+                                password=True,
+                                can_reveal_password = True
+                            )
+                        ),
+                        ft.Container(
+                            height=10
+                        ),
+                        ft.Container(
+                            content=ft.Container(
+                                content=ft.ElevatedButton(
+                                    bgcolor="#6CA2F2",
+                                    on_click=lambda _: print(self._inputCheck),
+                                    style=ft.ButtonStyle(
+                                        padding=20,
+                                        color=ft.Colors.WHITE
+                                        ),
+                                    content=ft.Text(
+                                        self._labels.t(self._keys.SIGN_UP)
                                         ),
                                     ),
-                                alignment=ft.alignment.center,
-                                adaptive=True
-                            )
-                        ]
-                    )
+                                ),
+                            alignment=ft.alignment.center,
+                            adaptive=True
+                        )
+                    ]
                 )
+            )
 
     @property
     def _sing_in(self) -> ft.Container:
