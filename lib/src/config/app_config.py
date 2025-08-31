@@ -4,13 +4,13 @@ from typing import Any, Self
 from configparser import ConfigParser
 
 class AppConfig:
-    app_title: str = 'Sistema de Estoque'
-    _instance: Self
     _file_path: str = './config.ini'
     _initialized: bool = False
+    _instance: Self
     _maximized: bool
     _theme: ThemeMode
     _config: ConfigParser
+    _default_lan: str
 
     def __init__(self) -> None:
         if AppConfig._initialized:
@@ -25,7 +25,6 @@ class AppConfig:
         return cls._instance
 
     def set_app_settings(self, page_instance: Page) -> None:
-        page_instance.title = self.app_title
         page_instance.window.maximized = self._maximized
         page_instance.theme_mode = self._theme
         page_instance.update()
@@ -33,7 +32,10 @@ class AppConfig:
     def _set_config(self):
         self._config['window_settings'] = {
             'maximized': str(self._maximized),
-            'app_theme': self._theme.name.lower()
+        }
+        self._config['user_settings'] = {
+            'app_theme': self._theme.name.lower(),
+            'default_lan': self._default_lan
         }
 
     def _load_configs(self):
@@ -41,6 +43,7 @@ class AppConfig:
             self._config.read(self._file_path)
         self._maximized = self._config.getboolean('window_settings', 'maximized', fallback=True)
         self._theme = ThemeMode(value=self._config.get('window_settings', 'app_theme', fallback='dark'))
+        self._default_lan = self._config.get('user_settings', 'default_lan', fallback='pt')
         self._set_config()
         self._save_file_config()
 
@@ -48,8 +51,13 @@ class AppConfig:
         self._set_config()
         with open(self._file_path, 'w') as f:
             self._config.write(f)
+
     @staticmethod
     def get_instance() -> "AppConfig":
-        if AppConfig._instance is None:
+        if not hasattr(AppConfig, "_instance") or AppConfig._instance is None:
             AppConfig()
         return AppConfig._instance
+    
+    @property
+    def default_lang(self) -> str:
+        return self._default_lan

@@ -1,4 +1,4 @@
-from lib.src.models.interfaces.app_page import AppPage
+from ..models.interfaces.app_page import AppPage
 from flet import Page, View, Container, Text
 
 class Home(AppPage):

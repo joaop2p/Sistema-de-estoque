@@ -1,15 +1,16 @@
 from typing import Callable, Self
 from flet import Page, RouteChangeEvent
-
-from lib.src.views.home import Home
-from ..models.interfaces.app_page import AppPage
+from lib.src.app.views.home import Home
+from lib.src.app.views.login import Login
+from ..app.models.interfaces.app_page import AppPage
 
 class PageManager:
     _page: Page
     _current_page: AppPage | None 
     _instance = None
     _routes: dict[str, AppPage | Callable[[], AppPage]] = {
-        '/home': Home
+        '/home': Home,
+        '/login': Login
     }
 
     def __new__(cls) -> Self:

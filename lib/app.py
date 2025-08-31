@@ -1,4 +1,7 @@
 from flet import Page
+
+from lib.utils.label_keys import LabelKey
+from lib.utils.labels import Labels
 from .src.config.app_config import AppConfig
 from .src.core.page_manager import PageManager
 
@@ -14,6 +17,7 @@ class App:
         
     def run(self, page_instance: Page) -> None:
         self.page = page_instance
+        self.page.title = Labels.t(LabelKey.APP_TITLE)
         self._config_screen()
         self.page_manager.set_page(self.page)
-        self.page.go('/home')
+        self.page.go('/login')

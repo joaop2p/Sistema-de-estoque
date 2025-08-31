@@ -1,0 +1,12 @@
+from enum import Enum
+
+class LabelKey(str, Enum):
+    APP_TITLE = "APP_TITLE"
+    WELCOME = "WELCOME"
+    LOGIN_MESSAGE = "LOGIN"
+    LOGIN_FIELD = 'LOGIN_FIELD'
+    MAIL_FIELD = 'MAIL_FIELD'
+    PASSWORD_FIELD = 'PASSWORD_FIELD'
+    COFIRM_PASSWORD = 'COFIRM_PASSWORD'
+    SIGN_IN = 'SIGN_IN'
+    SIGN_UP = 'SIGN_UP'
