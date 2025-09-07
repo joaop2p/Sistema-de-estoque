@@ -79,7 +79,7 @@ class InputField:
                 ),
                 # padding=0,
                 # menu_height=40,
-                icon_size=14,
+                # icon_size=14,
                 text_size=14,
                 border_color=Colors.TRANSPARENT,
                 border_radius=10,
