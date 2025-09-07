@@ -14,7 +14,15 @@ class Labels:
         LabelKey.SIGN_IN: 'Entrar',
         LabelKey.SIGN_UP: 'Cadastrar',
         LabelKey.ERROR_TEXT: 'O campo {field_name} é obrigatório.',
-        LabelKey.ERROR_TEXT_PASSWORD_NOT_MATCH: 'As senhas fornecidas não coincidem.'
+        LabelKey.ERROR_TEXT_PASSWORD_NOT_MATCH: 'As senhas fornecidas não coincidem.',
+        # Menu
+        LabelKey.MENU_HOME: 'Início',
+        LabelKey.MENU_PRODUCTS: 'Produtos',
+        LabelKey.MENU_CLIENTS: 'Clientes',
+        LabelKey.MENU_SALES: 'Vendas',
+        LabelKey.MENU_PROFILE: 'Perfil',
+        LabelKey.MENU_SETTINGS: 'Configurações',
+        LabelKey.MENU_LOGOUT: 'Sair',
     }
     _LANG_EN = {
         LabelKey.APP_TITLE: "Inventory System",
@@ -27,7 +35,15 @@ class Labels:
         LabelKey.SIGN_IN: 'Sign In',
         LabelKey.SIGN_UP: 'Sign Up',
         LabelKey.ERROR_TEXT: 'The field {field_name} is required.',
-        LabelKey.ERROR_TEXT_PASSWORD_NOT_MATCH: 'The provided passwords do not match.'
+        LabelKey.ERROR_TEXT_PASSWORD_NOT_MATCH: 'The provided passwords do not match.',
+        # Menu
+        LabelKey.MENU_HOME: 'Home',
+        LabelKey.MENU_PRODUCTS: 'Products',
+        LabelKey.MENU_CLIENTS: 'Clients',
+        LabelKey.MENU_SALES: 'Sales',
+        LabelKey.MENU_PROFILE: 'Profile',
+        LabelKey.MENU_SETTINGS: 'Settings',
+        LabelKey.MENU_LOGOUT: 'Logout',
     }
     _LANGS: dict[str, dict[LabelKey, str]] = {
         "pt": _LANG_PT,

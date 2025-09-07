@@ -165,8 +165,9 @@ class Login(AppPage):
 
     @property
     def _sing_in(self) -> ft.Container:
+        #on_click=self._inputCheck,
         temp_refs = self._refs['fields']['signIn']
-        buttom = ButtomLogin(text=self._labels.t(self._keys.SIGN_IN), theme = self._theme.mode.name, on_click=self._inputCheck, fields=self._refs['fields']['signIn'])
+        buttom = ButtomLogin(text=self._labels.t(self._keys.SIGN_IN),on_click=lambda _: self._page.go('/home'), theme = self._theme.mode.name,  fields=self._refs['fields']['signIn'],)
         return ft.Container(
                     alignment=ft.alignment.center,
                     content=ft.Column(
