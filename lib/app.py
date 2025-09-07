@@ -20,4 +20,4 @@ class App:
         self.page.title = Labels.t(LabelKey.APP_TITLE)
         self._config_screen()
         self.page_manager.set_page(self.page)
-        self.page.go('/login')
+        self.page.go('/main_view')

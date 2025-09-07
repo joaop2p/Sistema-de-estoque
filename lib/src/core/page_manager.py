@@ -1,16 +1,17 @@
 from typing import Callable, Self
 from flet import Page, RouteChangeEvent
-from lib.src.app.views.home import Home
+from lib.src.app.views.main_view import MainView
 from lib.src.app.views.login import Login
 from ..app.models.interfaces.app_page import AppPage
+from .routes import Routes
 
 class PageManager:
     _page: Page
     _current_page: AppPage | None 
     _instance = None
     _routes: dict[str, AppPage | Callable[[], AppPage]] = {
-        '/home': Home,
-        '/login': Login
+        Routes.MAIN: MainView(),
+        Routes.LOGIN: Login(),
     }
 
     def __new__(cls) -> Self:
@@ -25,9 +26,10 @@ class PageManager:
         self._page.on_view_pop = self.view_pop
 
     def change_page(self, event: RouteChangeEvent) -> None:
-        if event.data is None or event.data not in self._routes.keys():
-            raise Exception
-        page_entry = self._routes[event.data]
+        route = getattr(event, 'route', None) or getattr(event, 'data', None)
+        if route is None or route not in self._routes:
+            route = Routes.LOGIN
+        page_entry = self._routes[route]
         if callable(page_entry):
             new_view = page_entry()
         else:

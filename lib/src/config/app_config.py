@@ -23,6 +23,12 @@ class AppConfig:
         self._load_configs()
         AppConfig._initialized = True
 
+
+    #crie uma lógica para atualizar o first init para false quando o usuário clicar em qualquer lugar da aplicação
+    def update_first_init(self):
+        self._first_init = False
+        self._save_file_config()
+
     def __new__(cls, *args: Any, **kwds: Any) -> Self:
         if not hasattr(cls, "_instance"):
             cls._instance = super().__new__(cls)
@@ -41,7 +47,8 @@ class AppConfig:
         }
         self._config['user_settings'] = {
             'app_theme': self._theme,
-            'default_lan': self._default_lan
+            'default_lan': self._default_lan,
+            'first_init': str(self._first_init)
         }
 
     def _load_configs(self):
@@ -55,6 +62,7 @@ class AppConfig:
         self._theme = theme
         manager.set_theme(theme)
         self._default_lan = self._config.get('user_settings', 'default_lan', fallback='pt')
+        self._first_init = self._config.getboolean('user_settings', 'first_init', fallback=True)
         self._set_config()
         self._save_file_config()
 
@@ -72,3 +80,7 @@ class AppConfig:
     @property
     def default_lang(self) -> str:
         return self._default_lan
+    
+    @property
+    def first_init(self) -> bool:
+        return self._first_init

@@ -3,7 +3,7 @@ import flet as ft
 
 from lib.src.app.styles.theme import ThemeManager
 from lib.src.app.views.widgets.buttom import ButtomLogin
-from lib.src.app.views.widgets.text_field import text_Feild
+from lib.src.app.views.widgets.text_field import InputField
 from lib.src.app.views.widgets.toggle import Toggle
 from ..models.interfaces.app_page import AppPage
 from ....utils.label_keys import LabelKey
@@ -110,7 +110,7 @@ class Login(AppPage):
                     controls=[
                         ft.Container(
                             alignment=ft.alignment.center,
-                            content=text_Feild(
+                            content=InputField.default(
                                 theme=self._theme.mode.OBJECT_COLOR,
                                 label=self._labels.t(self._keys.LOGIN_FIELD),
                                 ref=temp_refs['login'],          
@@ -120,7 +120,7 @@ class Login(AppPage):
                         ),
                         ft.Container(
                             alignment=ft.alignment.center,
-                            content=text_Feild(
+                            content=InputField.default(
                                 theme=self._theme.mode.OBJECT_COLOR,
                                 label=self._labels.t(self._keys.MAIL_FIELD),
                                 ref=temp_refs['email'],          
@@ -129,7 +129,7 @@ class Login(AppPage):
                         ),
                         ft.Container(
                             alignment=ft.alignment.center,
-                            content=text_Feild(
+                            content=InputField.default(
                                 theme=self._theme.mode.OBJECT_COLOR,
                                 label=self._labels.t(self._keys.PASSWORD_FIELD),
                                 ref=temp_refs['password'],          
@@ -140,7 +140,7 @@ class Login(AppPage):
                         ),
                         ft.Container(
                             alignment=ft.alignment.center,
-                            content=text_Feild(
+                            content=InputField.default(
                                 theme=self._theme.mode.OBJECT_COLOR,
                                 label=self._labels.t(self._keys.COFIRM_PASSWORD),
                                 ref=temp_refs['confirm_password'],          
@@ -167,7 +167,7 @@ class Login(AppPage):
     def _sing_in(self) -> ft.Container:
         #on_click=self._inputCheck,
         temp_refs = self._refs['fields']['signIn']
-        buttom = ButtomLogin(text=self._labels.t(self._keys.SIGN_IN),on_click=lambda _: self._page.go('/home'), theme = self._theme.mode.name,  fields=self._refs['fields']['signIn'],)
+        buttom = ButtomLogin(text=self._labels.t(self._keys.SIGN_IN),on_click=lambda _: self._page.go('/main_view'), theme = self._theme.mode.name,  fields=self._refs['fields']['signIn'],)
         return ft.Container(
                     alignment=ft.alignment.center,
                     content=ft.Column(
@@ -175,7 +175,7 @@ class Login(AppPage):
                         controls=[
                             ft.Container(
                                 alignment=ft.alignment.center,
-                                content=text_Feild(
+                                content=InputField.default(
                                     theme=self._theme.mode.OBJECT_COLOR,
                                     label=self._labels.t(self._keys.LOGIN_FIELD),
                                     ref=temp_refs['login'],          
@@ -185,7 +185,7 @@ class Login(AppPage):
                             ),
                             ft.Container(
                                 alignment=ft.alignment.center,
-                                content=text_Feild(
+                                content=InputField.default(
                                     theme=self._theme.mode.OBJECT_COLOR,
                                     label=self._labels.t(self._keys.PASSWORD_FIELD),
                                     ref=temp_refs['password'],          
@@ -220,6 +220,7 @@ class Login(AppPage):
 
     def get_page(self) -> ft.View:
         self._toggle = Toggle(option_1_value=Labels.t(LabelKey.SIGN_IN),option_2_value=Labels.t(LabelKey.SIGN_UP), on_click=self._chengeMode, page= self._page, theme=self._theme.mode.name)
+        print(self._page.height)
         return ft.View(
             self._name,
             padding=0,

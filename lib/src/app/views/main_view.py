@@ -2,87 +2,111 @@
 from typing import Callable
 from lib.src.app.styles.image import ImagesAssets
 from lib.src.app.styles.theme import ThemeManager
+from lib.src.app.views.pages.home import Home
+from lib.src.app.views.pages.products import ProductView
+from lib.src.app.views.pages.welcome import WelcomePage
 from lib.src.app.views.widgets.side_bar import SideBar
+from lib.src.config.app_config import AppConfig
 from ..models.interfaces.app_page import AppPage
 from flet import Page, View, Container, Text
 import flet as ft
 from lib.utils.labels import Labels
 from lib.utils.label_keys import LabelKey
 
-class Home(AppPage):
+class MainView(AppPage):
     _page: Page
-    _name: str = '/home'
+    _name: str = '/main_view'
     _side_bar: SideBar
+    _main_content_controller: ft.Ref[ft.Container]
 
     def __init__(self) -> None:
         self._theme = ThemeManager()
         self._side_bar = SideBar(self._theme)
+        self._main_content_controller = ft.Ref[ft.Container]()
+        self._config = AppConfig.get_instance()
 
     def set_page(self, page: Page):
         self._page = page
-        
+
+    def teste_2(self):
+        return ft.Text("Teste 2")
+    
+    def _content_selector(self, index: int = 0):
+        keys = list(self.options.keys())
+        if self._config.first_init:
+            self._config.update_first_init()
+        if keys[index] == 'logout':
+            print('Logout clicked')
+            self._page.go('/login')
+            return
+        self._main_content_controller.current.content = self.options[keys[index]]['view'].get_view()
+        self._main_content_controller.current.update()
 
     def get_page(self) -> View:
-        options = {
+        self.options: dict[str, dict] = {
             'home': {
                 'icon': ft.Icons.HOME,
                 'selected_icon': ft.Icons.HOME_FILLED,
                 'label': Labels.t(LabelKey.MENU_HOME),
-                'on_click': lambda e: self._page.go('/home')
+                'view': Home()
             },
             'products': {
                 'icon': ft.Icons.INVENTORY_2,
                 'selected_icon': ft.Icons.INVENTORY_2,
                 'label': Labels.t(LabelKey.MENU_PRODUCTS),
-                'on_click': lambda e: self._page.go('/products')
+                'view': ProductView()
             },
             'clients': {
                 'icon': ft.Icons.GROUP,
                 'selected_icon': ft.Icons.GROUP,
                 'label': Labels.t(LabelKey.MENU_CLIENTS),
-                'on_click': lambda e: self._page.go('/clients')
+                'view': Home()
             },
             'sales': {
                 'icon': ft.Icons.POINT_OF_SALE,
                 'selected_icon': ft.Icons.POINT_OF_SALE,
                 'label': Labels.t(LabelKey.MENU_SALES),
-                'on_click': lambda e: self._page.go('/sales')
+                'view': Home()
             },
             'profile': {
                 'icon': ft.Icons.PERSON,
                 'selected_icon': ft.Icons.PERSON,
                 'label': Labels.t(LabelKey.MENU_PROFILE),
-                'on_click': lambda e: self._page.go('/profile')
+                'view': Home()
             },
             'settings': {
                 'icon': ft.Icons.SETTINGS,
                 'selected_icon': ft.Icons.SETTINGS,
                 'label': Labels.t(LabelKey.MENU_SETTINGS),
-                'on_click': lambda e: self._page.go('/settings')
+                'view': Home()
             },
-                'logout': {
+            'logout': {
                 'icon': ft.Icons.LOGOUT,
                 'selected_icon': ft.Icons.LOGOUT,
                 'label': Labels.t(LabelKey.MENU_LOGOUT),
-                'on_click': lambda e: self._page.go('/login')
+                'view': Home()
             },
         }
+        # self._content_selector()
         return View(
             self._name,
+            vertical_alignment = ft.MainAxisAlignment.CENTER,
             padding=0,
             controls=[
                 # Apenas para ter conteúdo na página
                 Container(
                     expand=True,
+                    alignment=ft.alignment.center,
                     bgcolor=self._theme.mode.BODY_COLOR,
                     content=ft.Row(
                         spacing=5,
                         controls=[
-                            self._side_bar.menu(self._page.height, options),
+                            self._side_bar.menu(self.options, self._content_selector),
                             # ft.VerticalDivider(width=1),
                             ft.Container(
-                                expand=True, 
-                                # content=
+                                expand=True,
+                                ref=self._main_content_controller,
+                                content= self.options['products']['view'].get_view() if self._config.first_init == False else WelcomePage().get_view(),
                             )
                         ]
                     )

@@ -1,5 +1,5 @@
 import flet as ft
-from typing import Optional
+from typing import Callable, Optional
 from lib.src.app.styles.image import ImagesAssets
 from lib.src.app.styles.theme import ThemeManager
 
@@ -58,16 +58,13 @@ class SideBar:
             # Ocultar labels quando recolhido
             self._menu_controller.current.label_type = ft.NavigationRailLabelType.NONE
             self._expanded = False
-
-        # Atualiza controles afetados
         self._bar_controller.current.update()
 
-    def menu(self, page_height: Optional[float], options: dict) -> ft.Container:
+    def menu(self, options: dict, onclick: Callable) -> ft.Container:
         return ft.Container(
             bgcolor=self._theme.mode.MENU_COLOR,
             width=100,
             ref=self._bar_controller,
-            height=page_height,
             on_hover=lambda e: self._hide_menu(e),
             animate=ft.Animation(300, ft.AnimationCurve.DECELERATE),
             alignment=ft.alignment.center,
@@ -77,14 +74,16 @@ class SideBar:
                 color=ft.Colors.with_opacity(0.05,ft.Colors.BLACK),
                 offset=ft.Offset(3,0)
             ),
-            content=self._menu(options)
+            content=self._menu(options, onclick)
         )
-    def _menu(self, options: dict) -> ft.NavigationRail:
+    def _menu(self, options: dict, onclick: Callable) -> ft.NavigationRail:
+        keys = list(options.keys())
+        # options[keys[1]]['on_click']()
         return ft.NavigationRail(
             selected_index=0,
-        ref=self._menu_controller,
-        # Começa recolhido (sem labels); ao hover expandimos
-        label_type=ft.NavigationRailLabelType.NONE,
+            ref=self._menu_controller,
+            # Começa recolhido (sem labels); ao hover expandimos
+            label_type=ft.NavigationRailLabelType.NONE,
             min_width=100,
             leading=ft.Container(
                         height=150,
@@ -108,9 +107,11 @@ class SideBar:
                     icon=ft.Icon(options[option]['icon']),
                     selected_icon=ft.Icon(options[option]['selected_icon']),
                     label=options[option].get('label', option.capitalize()),
-                    # Guarda a chave para mapear o handler depois
                 )
                 for option in options
             ],
-            on_change=lambda e:  print("Selected destination:", e.control.selected_index),
+            on_change=lambda e: onclick(e.control.selected_index),
         )
+    def x(self, e:ft.ControlEvent) -> None:
+        menu:ft.NavigationRail = e.control
+        # print(menu.selected_label_text_style)

@@ -11,6 +11,12 @@ class Theme(ABC):
     MENU_COLOR: str
     BODY_COLOR: str
     FONT_COLOR: str
+    SECOND_BUTTON_COLOR: str
+    SECOND_BUTTON_COLOR = "#3367E6"
+    INPUT_COLOR: str
+    DATA_TABLE_HEADER_COLOR: str
+    DATA_TABLE_ROW_COLOR: str
+    TIRDY_BUTTON_COLOR: str 
 
 class DarkTheme(Theme):
     name = 'dark'
@@ -21,6 +27,10 @@ class DarkTheme(Theme):
     BUTTON_COLOR = "#FFFFFF"
     BODY_COLOR = "#1E1E1E"
     FONT_COLOR = "#FFFFFF"
+    INPUT_COLOR = "#1A1A1A"
+    DATA_TABLE_HEADER_COLOR = "#1F1F1F"
+    DATA_TABLE_ROW_COLOR = "#1C1C1C"
+    TIRDY_BUTTON_COLOR = "#555555"
 
 class LightTheme(Theme):
     name = 'light'
@@ -31,6 +41,11 @@ class LightTheme(Theme):
     BUTTON_COLOR = "#000000"
     BODY_COLOR = "#DDDBDB"
     FONT_COLOR = "#000000"
+    INPUT_COLOR = "#DFDFDF"
+    DATA_TABLE_HEADER_COLOR = "#E0E0E0"
+    DATA_TABLE_ROW_COLOR = "#F5F5F5"
+    TIRDY_BUTTON_COLOR = "#AAAAAA"
+    # SECOND_BUTTON_COLOR = "#3367E6"
 
 class ThemeManager:
     mode: Theme = DarkTheme()
