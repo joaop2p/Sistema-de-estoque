@@ -24,8 +24,10 @@ class Labels:
         LabelKey.MENU_SETTINGS: 'Configurações',
         LabelKey.MENU_LOGOUT: 'Sair',
     # Welcome page
-    LabelKey.WELCOME_TITLE: 'Bem-vindo ao Sistema de Estoque!',
-    LabelKey.WELCOME_INSTRUCTION: 'Use o menu lateral para navegar pelas funcionalidades.',
+        LabelKey.WELCOME_TITLE: 'Bem-vindo ao Sistema de Estoque!',
+        LabelKey.WELCOME_INSTRUCTION: 'Use o menu lateral para navegar pelas funcionalidades.',
+        # Clients
+        LabelKey.NO_CLIENTS_FOUND: 'Nenhum cliente encontrado.',
     }
     _LANG_EN = {
         LabelKey.APP_TITLE: "Inventory System",
@@ -50,6 +52,8 @@ class Labels:
     # Welcome page
     LabelKey.WELCOME_TITLE: 'Welcome to the Inventory System!',
     LabelKey.WELCOME_INSTRUCTION: 'Use the side menu to navigate through the features.',
+    # Clients
+    LabelKey.NO_CLIENTS_FOUND: 'No clients found.',
     }
     _LANGS: dict[str, dict[LabelKey, str]] = {
         "pt": _LANG_PT,

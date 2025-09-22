@@ -6,8 +6,8 @@ from lib.src.app.views.widgets.buttom import ButtomLogin
 from lib.src.app.views.widgets.text_field import InputField
 from lib.src.app.views.widgets.toggle import Toggle
 from ..models.interfaces.app_page import AppPage
-from ....utils.label_keys import LabelKey
-from ....utils.labels import Labels
+from ....utils.labels.label_keys import LabelKey
+from ....utils.labels.labels import Labels
 
 class Login(AppPage):
     _name = '/login'

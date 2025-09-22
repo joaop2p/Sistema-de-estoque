@@ -60,7 +60,7 @@ class SideBar:
             self._expanded = False
         self._bar_controller.current.update()
 
-    def menu(self, options: dict, onclick: Callable) -> ft.Container:
+    def menu(self, options: dict, onclick: Callable, initial_index: int) -> ft.Container:
         return ft.Container(
             bgcolor=self._theme.mode.MENU_COLOR,
             width=100,
@@ -74,13 +74,13 @@ class SideBar:
                 color=ft.Colors.with_opacity(0.05,ft.Colors.BLACK),
                 offset=ft.Offset(3,0)
             ),
-            content=self._menu(options, onclick)
+            content=self._menu(options, onclick, initial_index)
         )
-    def _menu(self, options: dict, onclick: Callable) -> ft.NavigationRail:
+    def _menu(self, options: dict, onclick: Callable, initial_index: int) -> ft.NavigationRail:
         keys = list(options.keys())
         # options[keys[1]]['on_click']()
         return ft.NavigationRail(
-            selected_index=0,
+            selected_index=initial_index,
             ref=self._menu_controller,
             # Começa recolhido (sem labels); ao hover expandimos
             label_type=ft.NavigationRailLabelType.NONE,

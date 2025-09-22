@@ -1,6 +1,7 @@
 from enum import Enum
 
 class LabelKey(str, Enum):
+    NO_CLIENTS_FOUND = "NO_CLIENTS_FOUND"
     APP_TITLE = "APP_TITLE"
     WELCOME = "WELCOME"
     LOGIN_MESSAGE = "LOGIN"

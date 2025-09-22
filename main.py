@@ -1,7 +1,7 @@
 from flet import app
 from lib.app import App
-from lib.utils.label_keys import LabelKey
-from lib.utils.labels import Labels
+from lib.utils.labels.label_keys import LabelKey
+from lib.utils.labels.labels import Labels
 
 if __name__ == "__main__":
     my_app = App()

@@ -11,6 +11,8 @@ class ViewerPage(ABC):
     def get_view(self) -> Container:
         pass
 
+    
+
     # @abstractmethod
     # def set_page(self, page: Page):
     #     pass

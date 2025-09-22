@@ -1,10 +1,10 @@
 from lib.src.app.styles.theme import ThemeManager
 from ...models.interfaces.viewer_page import ViewerPage
-from lib.utils.labels import Labels
-from lib.utils.label_keys import LabelKey
+from lib.utils.labels.labels import Labels
+from lib.utils.labels.label_keys import LabelKey
 import flet as ft
 
-class WelcomePage(ViewerPage):
+class WelcomeView(ViewerPage):
     _theme: ThemeManager
 
     def __init__(self) -> None:

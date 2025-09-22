@@ -1,17 +1,19 @@
 
 from typing import Callable
+from lib.src.app.models.interfaces.viewer_page import ViewerPage
 from lib.src.app.styles.image import ImagesAssets
 from lib.src.app.styles.theme import ThemeManager
-from lib.src.app.views.pages.home import Home
-from lib.src.app.views.pages.products import ProductView
-from lib.src.app.views.pages.welcome import WelcomePage
+from lib.src.app.views.pages.clients_view import ClientView
+from lib.src.app.views.pages.home_view import HomeView
+from lib.src.app.views.pages.products_view import ProductView
+from lib.src.app.views.pages.welcome_view import WelcomeView
 from lib.src.app.views.widgets.side_bar import SideBar
 from lib.src.config.app_config import AppConfig
 from ..models.interfaces.app_page import AppPage
 from flet import Page, View, Container, Text
 import flet as ft
-from lib.utils.labels import Labels
-from lib.utils.label_keys import LabelKey
+from lib.utils.labels.labels import Labels
+from lib.utils.labels.label_keys import LabelKey
 
 class MainView(AppPage):
     _page: Page
@@ -39,7 +41,8 @@ class MainView(AppPage):
             print('Logout clicked')
             self._page.go('/login')
             return
-        self._main_content_controller.current.content = self.options[keys[index]]['view'].get_view()
+        view: ViewerPage = self.options[keys[index]]['view']
+        self._main_content_controller.current.content = view.get_view()
         self._main_content_controller.current.update()
 
     def get_page(self) -> View:
@@ -48,7 +51,7 @@ class MainView(AppPage):
                 'icon': ft.Icons.HOME,
                 'selected_icon': ft.Icons.HOME_FILLED,
                 'label': Labels.t(LabelKey.MENU_HOME),
-                'view': Home()
+                'view': HomeView()
             },
             'products': {
                 'icon': ft.Icons.INVENTORY_2,
@@ -60,33 +63,35 @@ class MainView(AppPage):
                 'icon': ft.Icons.GROUP,
                 'selected_icon': ft.Icons.GROUP,
                 'label': Labels.t(LabelKey.MENU_CLIENTS),
-                'view': Home()
+                'view': ClientView(self._page)
             },
             'sales': {
                 'icon': ft.Icons.POINT_OF_SALE,
                 'selected_icon': ft.Icons.POINT_OF_SALE,
                 'label': Labels.t(LabelKey.MENU_SALES),
-                'view': Home()
+                'view': HomeView()
             },
             'profile': {
                 'icon': ft.Icons.PERSON,
                 'selected_icon': ft.Icons.PERSON,
                 'label': Labels.t(LabelKey.MENU_PROFILE),
-                'view': Home()
+                'view': HomeView()
             },
             'settings': {
                 'icon': ft.Icons.SETTINGS,
                 'selected_icon': ft.Icons.SETTINGS,
                 'label': Labels.t(LabelKey.MENU_SETTINGS),
-                'view': Home()
+                'view': HomeView()
             },
             'logout': {
                 'icon': ft.Icons.LOGOUT,
                 'selected_icon': ft.Icons.LOGOUT,
                 'label': Labels.t(LabelKey.MENU_LOGOUT),
-                'view': Home()
+                'view': HomeView()
             },
         }
+        section = 'clients'
+        first_view = self.options[section].get('view', self._config.first_init).get_view()
         # self._content_selector()
         return View(
             self._name,
@@ -101,12 +106,12 @@ class MainView(AppPage):
                     content=ft.Row(
                         spacing=5,
                         controls=[
-                            self._side_bar.menu(self.options, self._content_selector),
+                            self._side_bar.menu(self.options, self._content_selector, list(self.options.keys()).index(section)),
                             # ft.VerticalDivider(width=1),
                             ft.Container(
                                 expand=True,
                                 ref=self._main_content_controller,
-                                content= self.options['products']['view'].get_view() if self._config.first_init == False else WelcomePage().get_view(),
+                                content=first_view,
                             )
                         ]
                     )

@@ -1,7 +1,7 @@
 from flet import Page
 
-from lib.utils.label_keys import LabelKey
-from lib.utils.labels import Labels
+from lib.utils.labels.label_keys import LabelKey
+from lib.utils.labels.labels import Labels
 from .src.config.app_config import AppConfig
 from .src.core.page_manager import PageManager
 

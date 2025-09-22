@@ -1,0 +1,12 @@
+from enum import Enum
+
+class LogKey(str, Enum):
+    APP_START = "APP_START"
+    APP_STOP = "APP_STOP"
+    ROUTE_CHANGE = "ROUTE_CHANGE"
+    API_REQUEST = "API_REQUEST"
+    API_RESPONSE = "API_RESPONSE"
+    API_ERROR = "API_ERROR"
+    UI_ACTION = "UI_ACTION"
+    AUTH_LOGIN = "AUTH_LOGIN"
+    AUTH_LOGOUT = "AUTH_LOGOUT"

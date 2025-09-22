@@ -16,7 +16,8 @@ class Theme(ABC):
     INPUT_COLOR: str
     DATA_TABLE_HEADER_COLOR: str
     DATA_TABLE_ROW_COLOR: str
-    TIRDY_BUTTON_COLOR: str 
+    TIRDY_BUTTON_COLOR: str
+    CARD_COLOR: str 
 
 class DarkTheme(Theme):
     name = 'dark'
@@ -31,6 +32,7 @@ class DarkTheme(Theme):
     DATA_TABLE_HEADER_COLOR = "#1F1F1F"
     DATA_TABLE_ROW_COLOR = "#1C1C1C"
     TIRDY_BUTTON_COLOR = "#555555"
+    CARD_COLOR = "#181719"
 
 class LightTheme(Theme):
     name = 'light'
@@ -45,7 +47,7 @@ class LightTheme(Theme):
     DATA_TABLE_HEADER_COLOR = "#E0E0E0"
     DATA_TABLE_ROW_COLOR = "#F5F5F5"
     TIRDY_BUTTON_COLOR = "#AAAAAA"
-    # SECOND_BUTTON_COLOR = "#3367E6"
+    CARD_COLOR = "#FFFFFF"
 
 class ThemeManager:
     mode: Theme = DarkTheme()

@@ -6,8 +6,8 @@ from lib.src.app.styles.theme import ThemeManager
 import flet as ft
 
 from lib.src.app.views.widgets.text_field import InputField
-from lib.utils.label_keys import LabelKey
-from lib.utils.labels import Labels
+from lib.utils.labels.label_keys import LabelKey
+from lib.utils.labels.labels import Labels
 
 class ProductView(ViewerPage):
     _theme: ThemeManager
