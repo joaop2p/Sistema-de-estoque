@@ -81,7 +81,8 @@ class ClientView(ViewerPage):
             bgcolor=self._theme.mode.BODY_COLOR,
             ref=self._main_content_controller,
         )
-        self._page.run_task(self._switch_to_clients_view)
+        if not hasattr(self, "_load_task") or self._load_task is None:
+            self._load_task = self._page.run_task(self._switch_to_clients_view)
         return ft.Container(
             padding=ft.padding.all(20),
             alignment=ft.alignment.center,
