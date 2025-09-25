@@ -5,14 +5,13 @@ from lib.src.config.api_config import ApiConfig
 from lib.utils.exceptions.api_exceptions import ApiException
 
 class ClientApiController:
+
     @staticmethod
     async def find_all() -> list[Client] | None:
         try:
             url = ApiConfig.URL + "/clients"
-            print(url)
-            response = get(url, headers=ApiConfig.HEADERS)
+            response = get(url, headers=ApiConfig.HEADERS, timeout=ApiConfig.TIMEOUT)
             if response.status_code == 200:
-                # print("Response JSON:", response.json())
                 return [Client.from_dict(data) for data in response.json()]
             else:
                 raise ApiException("Failed to fetch clients", status_code=response.status_code)

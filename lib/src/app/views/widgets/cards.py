@@ -233,11 +233,10 @@ class ContactsCard:
     def contacts_card(self, theme: ThemeManager) -> ft.Container:
         # Monte o card uma única vez e reutilize subcontroles
         avatar = self._get_avatar()
-        fake = Faker("pt_BR")
         return ft.Container(
             expand=True,
-            # animate_scale=ft.Animation(200, ft.AnimationCurve.EASE_IN_OUT),
-            # on_hover=lambda e: self._animation(e),
+            animate_scale=ft.Animation(200, ft.AnimationCurve.EASE_IN_OUT),
+            on_hover=lambda e: self._animation(e),
             content=ft.Card(
                 expand=True,
                 height=160,

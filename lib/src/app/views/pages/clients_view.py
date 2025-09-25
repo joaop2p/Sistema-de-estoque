@@ -13,6 +13,7 @@ from faker import Faker
 
 class ClientView(ViewerPage):
     _main_content_controller: ft.Ref[ft.Container]
+    main_content: ft.Container
     _theme: ThemeManager
     _cards: list[ft.Container]
 
@@ -21,6 +22,16 @@ class ClientView(ViewerPage):
         self._theme = ThemeManager()
         self._page = page
         self._clients = []
+        self._init_main_content()
+
+    def _init_main_content(self):
+        self._main_content_controller = ft.Ref[ft.Container]()
+        self.main_content = ft.Container(
+            expand=True,
+            alignment=ft.alignment.center,
+            bgcolor=self._theme.mode.BODY_COLOR,
+            ref=self._main_content_controller,
+        )
 
     def _loading_screen(self):
         return ft.ProgressRing()
@@ -74,13 +85,6 @@ class ClientView(ViewerPage):
         ]
 
     def get_view(self) -> ft.Container:
-        self._main_content_controller = ft.Ref[ft.Container]()
-        main_content = ft.Container(
-            expand=True,
-            alignment=ft.alignment.center,
-            bgcolor=self._theme.mode.BODY_COLOR,
-            ref=self._main_content_controller,
-        )
         if not hasattr(self, "_load_task") or self._load_task is None:
             self._load_task = self._page.run_task(self._switch_to_clients_view)
         return ft.Container(
@@ -139,7 +143,7 @@ class ClientView(ViewerPage):
                             content=InputField.search_field(color=self._theme.mode.INPUT_COLOR, width=None),
                         )
                     ),
-                    main_content
+                    self.main_content
                 ]
             )
         )

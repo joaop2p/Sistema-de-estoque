@@ -3,3 +3,4 @@ class ApiConfig:
     HEADERS: dict[str, str] = {
         "Content-Type": "application/json",
     }
+    TIMEOUT: int = 5
