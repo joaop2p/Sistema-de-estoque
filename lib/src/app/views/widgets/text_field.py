@@ -42,9 +42,11 @@ class InputField:
     def search_field(
         label: str = "Search...",
         width: float | None = 300,
-        color: str | None = None
+        color: str | None = None,
+        expand: bool = False
     ) -> ft.TextField:
         return ft.TextField(
+            expand=expand,
             label=label,
             height=50,
             text_size=14,
@@ -64,7 +66,7 @@ class InputField:
             bgcolor=color,
             )
     @staticmethod
-    def drop_down(color: str | None = None, label: str | None = None) -> ft.Container:
+    def drop_down(color: str | None = None, label: str | None = None, width: float | None = 300) -> ft.Container:
         return ft.Container(
             # height=50,
             alignment=ft.alignment.center,
@@ -83,7 +85,7 @@ class InputField:
                 text_size=14,
                 border_color=Colors.TRANSPARENT,
                 border_radius=10,
-                width=300,
+                width=width,
                 filled=True,
                 fill_color=color,
                 options=[

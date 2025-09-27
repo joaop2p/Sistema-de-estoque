@@ -6,3 +6,4 @@ test.py
 md_to_pdf.py
 *.txt
 .vscode
+.github

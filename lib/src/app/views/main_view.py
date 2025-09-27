@@ -6,6 +6,7 @@ from lib.src.app.styles.theme import ThemeManager
 from lib.src.app.views.pages.clients_view import ClientView
 from lib.src.app.views.pages.home_view import HomeView
 from lib.src.app.views.pages.products_view import ProductView
+from lib.src.app.views.pages.sales_view import SalesView
 from lib.src.app.views.pages.welcome_view import WelcomeView
 from lib.src.app.views.widgets.side_bar import SideBar
 from lib.src.config.app_config import AppConfig
@@ -69,7 +70,7 @@ class MainView(AppPage):
                 'icon': ft.Icons.POINT_OF_SALE,
                 'selected_icon': ft.Icons.POINT_OF_SALE,
                 'label': Labels.t(LabelKey.MENU_SALES),
-                'view': HomeView()
+                'view': SalesView()
             },
             'profile': {
                 'icon': ft.Icons.PERSON,
@@ -90,7 +91,7 @@ class MainView(AppPage):
                 'view': HomeView()
             },
         }
-        section = 'clients'
+        section = 'sales'
         first_view = self.options[section].get('view', self._config.first_init).get_view()
         # self._content_selector()
         return View(

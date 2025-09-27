@@ -1,5 +1,6 @@
 import asyncio
 import random
+from warnings import deprecated
 from lib.src.app.controllers.client_api_controller import ClientApiController
 from lib.src.app.models.client import Client
 from lib.src.app.models.interfaces.viewer_page import ViewerPage
@@ -65,6 +66,7 @@ class ClientView(ViewerPage):
             )
         self._main_content_controller.current.update()
 
+    @deprecated("Use ClientApiController.find_all instead")
     async def _fetch_clients(self) -> list[Client]:
         fake = Faker("pt_BR")
         await asyncio.sleep(1)
